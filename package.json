@@ -1,0 +1,84 @@
+{
+  "name": "dbt-model-mate",
+  "displayName": "dbt Model Mate",
+  "description": "AI-powered semantic layer assistant for dbt analytics engineering teams",
+  "version": "0.0.1",
+  "publisher": "dbt-model-mate",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Other"],
+  "keywords": ["dbt", "semantic layer", "analytics engineering", "MetricFlow", "data modeling"],
+  "activationEvents": [
+    "workspaceContains:**/dbt_project.yml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dbtModelMate.generateContextDocuments",
+        "title": "dbt Model Mate: Generate Context Documents"
+      },
+      {
+        "command": "dbtModelMate.generateSemanticModel",
+        "title": "dbt Model Mate: Generate Semantic Model (Generic)"
+      },
+      {
+        "command": "dbtModelMate.generateContextualSemanticModel",
+        "title": "dbt Model Mate: Generate Contextual Semantic Model"
+      }
+    ],
+    "configuration": {
+      "title": "dbt Model Mate",
+      "properties": {
+        "dbtModelMate.aiProfiles": {
+          "type": "array",
+          "default": [],
+          "description": "List of AI provider profiles. API keys are stored separately in secure storage.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "provider": {
+                "type": "string",
+                "enum": ["copilot", "anthropic", "openai"]
+              },
+              "model": { "type": "string" }
+            }
+          }
+        },
+        "dbtModelMate.activeAiProfileId": {
+          "type": "string",
+          "default": "",
+          "description": "The ID of the currently active AI profile."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "test": "node ./out/test/runTests.js",
+    "pretest": "npm run compile && npm run lint",
+    "package": "vsce package --no-dependencies",
+    "clean": "rm -rf out"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.90.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "js-yaml": "^4.1.0"
+  }
+}
