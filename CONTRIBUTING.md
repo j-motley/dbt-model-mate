@@ -6,6 +6,8 @@ If something in your dbt workflow is tedious, error-prone, or just not fun — t
 
 > A quick note on language: a **PR for the extension** means a pull request to this repository, adding or improving functionality in dbt Model Mate itself. This is distinct from raising a PR to a dbt project *using* the extension.
 
+==It is important to note that a "Feature" in this document, for this codebase, refers exclusively to a unit of VS Code extension functionality — not to semantic model features or dbt features.==
+
 ---
 
 ## What belongs in this extension
