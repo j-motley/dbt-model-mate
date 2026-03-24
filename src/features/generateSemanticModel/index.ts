@@ -62,7 +62,7 @@ export class GenerateSemanticModelFeature implements Feature {
       async () => {
         rawOutput = await ai.complete(prompt, {
           systemPrompt:
-            'You are an expert analytics engineer specializing in dbt MetricFlow semantic layers. ' +
+            'You are an expert analytics engineer specializing in dbt semantic layers. ' +
             'Output only valid YAML with no additional commentary.',
         });
       }

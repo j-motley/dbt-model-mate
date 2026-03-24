@@ -11,8 +11,8 @@
  **Last Updated:** 2026-03-22  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OMQ2AABAAsSPBCUZfE2IYmVDBhAU2QtIq6DIzW7UHAMBfnGt1V8fXEwAAXrse/xcF7U7sx4wAAAAASUVORK5CYII=)  
 **1. Purpose**  
-Generate a MetricFlow semantic model YAML starter for a selected dbt model using only that model's own schema — its column names, data types, and descriptions. No project context documents are required.  
-This feature is intentionally context-blind. It produces a valid starting point that follows dbt MetricFlow conventions but does not enforce team-specific naming standards, patterns, or architecture rules. It is appropriate for quick starts, one-off models, or situations where context documents have not yet been generated.  
+Generate a semantic model YAML starter for a selected dbt model using only that model's own schema — its column names, data types, and descriptions. No project context documents are required.  
+This feature is intentionally context-blind. It produces a valid starting point that follows dbt conventions but does not enforce team-specific naming standards, patterns, or architecture rules. It is appropriate for quick starts, one-off models, or situations where context documents have not yet been generated.  
 For output that follows team conventions, use **Generate Contextual Semantic Model** instead.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OQQ2AQBAAsSE5CbzRujLwhwQMYIEfIWkVdJuZozoDAOAvrlWtav96AgDAa/cDEXQEKquakOYAAAAASUVORK5CYII=)  
 **2. Scope**  
@@ -28,7 +28,7 @@ For output that follows team conventions, use **Generate Contextual Semantic Mod
 - Reading or injecting context documents  
 - Enforcing team naming conventions  
 - Validating references against other semantic models  
-- Generating metrics (MetricFlow metrics: block)  
+- Generating metrics
 - Modifying existing semantic models  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OQQmAABRAsSfYxZo/kC1sYQLPJrCCNxG2BFtmZquOAAD4i3Ot7mr/egIAwGvXA4qzBdC53Vr8AAAAAElFTkSuQmCC)  
 **3. Preconditions**  
@@ -165,11 +165,11 @@ dbt Model Mate: AI profile "Work Copilot" is unavailable.
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OMQ2AUBBAsUfyRTCh9VRgEBGsWGAjJK2CbjNzVGcAAPzFtapV7V9PAAB47X4AEWgEMAY9+pUAAAAASUVORK5CYII=)  
 **7. Prompt Contract**  
 **System prompt**  
-You are an expert analytics engineer specializing in dbt MetricFlow semantic layers.  
+You are an expert analytics engineer specializing in dbt semantic layers.  
  Output only valid YAML with no additional commentary.  
    
 **User prompt structure**  
-You are a dbt MetricFlow expert. Generate a complete semantic model YAML definition  
+You are a dbt expert. Generate a complete semantic model YAML definition  
  for the dbt model below.  
    
  Model name: <model.name>  
@@ -179,7 +179,7 @@ You are a dbt MetricFlow expert. Generate a complete semantic model YAML definit
  ...  
    
  Requirements:  
- - Use the dbt MetricFlow semantic model schema (dbt 1.7+)  
+
  - Identify the most likely primary entity (usually an ID column)  
  - Identify foreign key entities from columns ending in _id  
  - Classify dimensions as "time" for date/timestamp columns, "categorical" for everything else  

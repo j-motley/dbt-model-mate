@@ -96,7 +96,7 @@ export function buildPatternLibraryPrompt(models: DbtModel[], semanticModels: Se
   const dimCounts = dimTypes.reduce((acc, t) => ({ ...acc, [t]: (acc[t] ?? 0) + 1 }), {} as Record<string, number>);
 
   return `
-You are a dbt MetricFlow expert. Analyze the following patterns from an existing semantic layer
+You are a dbt expert. Analyze the following patterns from an existing semantic layer
 and produce a pattern library document in markdown.
 
 Semantic model count: ${semanticModels.length}

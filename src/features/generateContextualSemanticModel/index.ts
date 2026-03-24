@@ -98,7 +98,6 @@ export class GenerateContextualSemanticModelFeature implements Feature {
       async () => {
         rawOutput = await ai.complete(prompt, {
           systemPrompt:
-            'You are an expert analytics engineer specializing in dbt MetricFlow semantic layers. ' +
             'You have been provided with project-specific context documents. ' +
             'Follow the naming conventions, patterns, and standards described in those documents exactly. ' +
             'Output only valid YAML with no additional commentary.',

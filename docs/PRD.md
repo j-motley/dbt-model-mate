@@ -245,7 +245,6 @@ When a feature uses context documents, it stamps their IDs as a provenance block
   | product_catalog | Existing data products and model counts |  
    
 **10. dbt Compatibility**  
-- **Target version:** dbt 1.7 and above (MetricFlow semantic model schema)  
 - **Detection:** The extension activates when dbt_project.yml is present in the workspace root  
 - **Version check:** At activation, the extension reads require-dbt-version from dbt_project.yml and warns if the project is below 1.7.0  
 - **Source parsing:** Raw YAML source files are the primary data source. target/manifest.json is used as an optional enrichment layer when available.  

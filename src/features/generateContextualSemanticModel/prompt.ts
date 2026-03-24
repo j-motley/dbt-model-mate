@@ -27,7 +27,7 @@ export function buildContextualPrompt(model: DbtModel, contextDocs: ContextDocum
     .join('\n\n---\n\n');
 
   return `
-You are generating a dbt MetricFlow semantic model definition for the model described below.
+You are generating a dbt semantic model definition for the model described below.
 You have been provided with project-specific context documents. Follow them precisely —
 especially naming conventions, patterns, and standards. Do not deviate from team conventions.
 
@@ -40,7 +40,6 @@ ${columnList || '(no columns documented)'}
 
 # Requirements
 
-- Use the dbt MetricFlow semantic model schema (dbt 1.7+)
 - Follow the naming conventions from the context documents above
 - Follow the entity, dimension, and measure patterns from the pattern library above
 - Reference the model using: ref('${model.name}')

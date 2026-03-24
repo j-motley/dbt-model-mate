@@ -2,7 +2,7 @@
 
 An AI-powered VS Code extension for analytics engineering teams that own the semantic layer in a dbt-centric data ecosystem.
 
-dbt Model Mate helps you build, repair, validate, and improve MetricFlow semantic definitions — and gives your team a simple pattern for adding whatever AI-assisted workflows you need.
+dbt Model Mate helps you build, repair, validate, and improve semantic models — and gives your team a simple pattern for adding whatever AI-assisted workflows you need.
 
 ---
 
@@ -10,7 +10,7 @@ dbt Model Mate helps you build, repair, validate, and improve MetricFlow semanti
 
 - **VS Code** 1.90 or higher
 - **Node.js** 20 or higher (for development)
-- **dbt** 1.7 or higher (MetricFlow semantic model schema)
+- **dbt** 1.7 or higher
 - One of the following for AI access:
   - GitHub Copilot subscription (recommended — no API key required)
   - Anthropic API key ([console.anthropic.com](https://console.anthropic.com))
@@ -120,7 +120,7 @@ Open a folder containing a `dbt_project.yml` in VS Code. The extension activates
 ⚡ Work Copilot · claude-3.5-sonnet        $(database) my-project
 ```
 
-If the dbt project version appears incompatible (below 1.7.0), a warning is shown. The extension targets dbt 1.7+ (MetricFlow schema).
+If the dbt project version appears incompatible (below 1.7.0), a warning is shown. The extension targets dbt 1.7+.
 
 ---
 
@@ -159,7 +159,7 @@ Each document is assigned a unique ID at generation time. That ID is stamped int
 **Command:** `dbt Model Mate: Generate Semantic Model (Generic)`
 **Tier:** Development
 
-Generates a MetricFlow semantic model starter for a selected dbt model. Uses only the model's own YAML (columns, descriptions) — no project context required.
+Generates a semantic model starter for a selected dbt model. Uses only the model's own YAML (columns, descriptions) — no project context required.
 
 Use this for a quick start when context documents have not been generated yet, or when working on a model that is an outlier from your usual patterns.
 
@@ -178,7 +178,7 @@ Use this for a quick start when context documents have not been generated yet, o
 **Command:** `dbt Model Mate: Generate Contextual Semantic Model`
 **Tier:** Development
 
-Generates a MetricFlow semantic model using your project's context documents. Produces output that follows your team's naming conventions, patterns, and standards.
+Generates a semantic model using your project's context documents. Produces output that follows your team's naming conventions, patterns, and standards.
 
 **Requires context documents to be generated first** (see above). The extension will prompt you to generate them if none are found, or warn you if they are stale.
 

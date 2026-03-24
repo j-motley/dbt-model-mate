@@ -8,7 +8,7 @@
     "vscode": "^1.90.0"
   },
   "categories": ["Other"],
-  "keywords": ["dbt", "semantic layer", "analytics engineering", "MetricFlow", "data modeling"],
+  "keywords": ["dbt", "semantic layer", "analytics engineering", "data modeling"],
   "activationEvents": [
     "workspaceContains:**/dbt_project.yml"
   ],

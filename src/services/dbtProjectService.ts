@@ -65,7 +65,7 @@ export class DbtProjectServiceImpl implements DbtProjectService {
 
       if (!this.projectInfo.isVersionCompatible) {
         vscode.window.showWarningMessage(
-          `dbt Model Mate requires dbt 1.7+ (MetricFlow). ` +
+          `dbt Model Mate requires dbt 1.7+. ` +
           `This project specifies "${JSON.stringify(requireVersion)}". ` +
           `Some features may not work correctly.`
         );

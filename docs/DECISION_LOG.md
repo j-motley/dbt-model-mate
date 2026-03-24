@@ -126,22 +126,6 @@ Raw YAML parsing works everywhere, with no build step required. The manifest enr
 
 ---
 
-## DEC-006: dbt Version Target — 1.7+ / MetricFlow
-
-**Date:** 2026-03-21
-**Status:** Adopted
-
-### Decision
-The extension targets dbt 1.7 and above, using the MetricFlow semantic model schema (`semantic_models:` block). The legacy `metrics:` block syntax is not supported.
-
-### Context
-dbt MetricFlow was introduced as the semantic layer framework in dbt 1.6 and stabilized in 1.7. Two incompatible YAML schemas exist: the MetricFlow schema (`semantic_models:`) and the pre-MetricFlow `metrics:` schema. Supporting both would significantly complicate prompt templates, YAML parsing, and validation logic.
-
-### Rationale
-Targeting 1.7+ allows the extension to commit to a single, current schema. Teams on older versions receive a version compatibility warning at activation. The MetricFlow schema is the actively maintained standard — building against it keeps the extension aligned with dbt's direction.
-
----
-
 ## DEC-008: Context Documents — Manual RAG with UUID Provenance
 
 **Date:** 2026-03-22

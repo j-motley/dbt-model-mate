@@ -41,7 +41,7 @@ Context documents are different from system instructions in an important way. Sy
 
 In practice, our extension uses both:
 
-The systemPrompt in each feature's AI call sets behavioral instructions ("you are a dbt MetricFlow expert, output only valid YAML")
+The systemPrompt in each feature's AI call sets behavioral instructions ("you are a dbt expert, output only valid YAML")
 
  
 
