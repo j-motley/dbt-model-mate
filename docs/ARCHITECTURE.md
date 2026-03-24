@@ -74,6 +74,7 @@ interface Contribution {
   disposable: vscode.Disposable;
 }
 ```
+==It is important to note that a "Feature" in this document, for this codebase, refers exclusively to a unit of VS Code extension functionality — not to semantic model features or dbt features.==
 
 Some features build project context (scanning the codebase, generating context documents), while others consume it (generating semantic models, validating references). This distinction is conceptual and not part of the core feature contract — all features implement the same interface.
 

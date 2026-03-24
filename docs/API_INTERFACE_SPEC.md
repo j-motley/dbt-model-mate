@@ -29,6 +29,7 @@ interface Feature {
   deactivate?(): void | Promise<void>;
 }
 ```
+==It is important to note that a "Feature" in this document, for this codebase, refers exclusively to a unit of VS Code extension functionality — not to semantic model features or dbt features.==
 
 ### Properties
 
@@ -144,7 +145,7 @@ interface ServiceContainer {
 | `contextStore` | `ContextStoreService` | Reads and writes context documents with UUID provenance |
 | `vscodeContext` | `vscode.ExtensionContext` | Raw VS Code extension context for advanced use cases |
 
----
+
 
 ## 4. AiService
 

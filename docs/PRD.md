@@ -19,13 +19,9 @@ We are on the horizon of what is proving to be a complete paradigm shift in our 
  A VS Code extension as a Swiss Army knife for the semantic layer, providing tools to help with model generation, unit testing, performance tuning, building and deployment code, managing releases, monitoring the environment, the list of potential wins goes on and on.  
    
  And once developed, those tools with clearly defined inputs and outputs, can be leveraged by other teammates and AI agents as well. In a landscape where AI effectively becomes in-house development capability, this approach eliminates dependence on generic software designed for the masses. Instead, it enables teams and individuals to craft tailored solutions, share them, and evolve their tooling organically. The result is a dual-purpose system: a direct productivity accelerator and a foundation for continuous, developer-driven innovation.  
-This document defines the product requirements for dbt Model Mate, a VS Code extension for analytics engineering teams that own the semantic layer in a dbt-centric data ecosystem.  
+This document defines the product requirements for dbt Model Mate, a VS Code extension for analytics engineering teams that own the semantic layer in a dbt-centric data ecosystem.    
    
-    
-   
-  **2. Problem Statement**  
-   
-    
+  **2. Problem Statement**    
    
   Analytics engineering teams working on dbt semantic layers face a set of compounding challenges:  
 - Semantic layer work — generating, repairing, validating, and improving models and metric definitions — is repetitive, knowledge-intensive, and error-prone  
@@ -40,7 +36,9 @@ The core challenge is not that AI tools are unavailable — it is that AI tools 
 dbt Model Mate is a platform for analytics engineering teams to build their own AI-assisted workflows for the semantic layer. The extension ships with a set of core features, but the real value comes from team members adding functionality that solves their specific pain points.  
    
     
- *A teammate who feels friction in their semantic layer workflow does not raise a feature request. They build the feature.*  
+ *A teammate who feels friction in their semantic layer workflow does not raise a feature request. They build the feature.*
+
+==It is important to note that a "Feature" in this document, for this codebase, refers exclusively to a unit of VS Code extension functionality — not to semantic model features or dbt features.==
     
   **4. Target Users**  
     
@@ -96,8 +94,11 @@ dbt Model Mate is a platform for analytics engineering teams to build their own 
    
 **7. Feature Inventory**  
    
-Some features build project context (scanning the codebase, generating context documents), while others consume it (generating semantic models, validating references). This distinction is conceptual and not part of the core feature contract — all features implement the same interface.  
+Some features build project context (scanning the codebase, generating context documents), while others consume it (generating semantic models, validating references). This distinction is conceptual and not part of the core feature contract — all features implement the same interface.
+
+==It is **especially** important to note here that a "Feature" in this document, for this codebase, refers exclusively to a unit of VS Code extension functionality — not to semantic model features or dbt features.==
    
+In this section, we discuss the development of a feature that will generate semantic models. But the **feature** in this case is the function to automate the generation of a model, not the development of any one model. It's the actual capability of the extension to peform that skill.
     
  **Current Features (v0.1.0)**  
    
@@ -117,9 +118,13 @@ Some features build project context (scanning the codebase, generating context d
    
   | Generate Context Documents | Scans the dbt project and produces canonical context documents: architecture, naming conventions, source index, and pattern library. Each document is assigned a UUID at generation time. |  
    
-    
+ | Classify Models | Classifies existing models by layer role and archetype |  
+ 
   | Generate Semantic Model | Generates a semantic model based on provided context. Stamps the context document IDs as provenance in the output. |  
-   
+  
+  | Show SQL Errors | Exposes all SQL errors in a given a semantic model or query. | 
+
+  | AI Usage Panel | Shows current model, token usage, remaining credits, and request history |   
    
 **Planned Features**  
    
@@ -144,7 +149,7 @@ Some features build project context (scanning the codebase, generating context d
    
     
    
-  | Classify Models | Classifies existing models by layer role and archetype |  
+
    
     
    
@@ -156,7 +161,7 @@ Some features build project context (scanning the codebase, generating context d
    
     
    
-  | AI Usage Panel | Shows current model, token usage, remaining credits, and request history |   
+
    
    
 **8. AI Provider Support**  
