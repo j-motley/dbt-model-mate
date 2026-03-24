@@ -142,43 +142,13 @@ Targeting 1.7+ allows the extension to commit to a single, current schema. Teams
 
 ---
 
-## DEC-007: Feature Tier Classification — Foundational vs Development
-
-**Date:** 2026-03-22
-**Status:** Adopted
-
-### Decision
-Features are classified into two tiers via a `tier: FeatureTier` property on the `Feature` interface. `'foundational'` features build and refresh context documents. `'development'` features perform semantic layer work for the user.
-
-### Context
-The BTL AgenticAI PoC documents identified a key insight: AI agents without curated project context produce code that compiles but violates team standards. The solution is a two-category system where some features build knowledge (foundational) and others consume it (development). The question was how to represent this distinction in the extension architecture.
-
-### Options Considered
-
-**Separate interfaces or base classes**
-`FoundationalFeature` and `DevelopmentFeature` as distinct types.
-- Increases complexity — contributors must choose which type to extend
-- No meaningful behavioral difference between the two types
-- Would require more interface knowledge to contribute
-
-**Tier as an attribute (chosen)**
-A single `Feature` interface with a `tier` property.
-- No additional complexity for contributors — same interface, same pattern
-- Enables UI grouping and documentation differentiation
-- Tier is a classification, not a behavioral contract
-
-### Rationale
-The tiers describe what a feature does, not how it is built. Using a property rather than separate types keeps the contributor experience identical for both tiers while enabling the UI to surface them differently.
-
----
-
 ## DEC-008: Context Documents — Manual RAG with UUID Provenance
 
 **Date:** 2026-03-22
 **Status:** Adopted
 
 ### Decision
-Project context (architecture, naming conventions, patterns, source index) is stored as curated markdown files in `.dbt_model_mate/context/`. Each document is assigned a UUID at generation time. Development features that use these documents stamp the IDs of the documents they consumed as a provenance block in their output.
+Project context (architecture, naming conventions, patterns, source index) is stored as curated markdown files in `.dbt_model_mate/context/`. Each document is assigned a UUID at generation time. Features that use these documents stamp the IDs of the documents they consumed as a provenance block in their output.
 
 ### Context
 AI models have no persistent memory and no awareness of the project's conventions. Injecting curated project context into prompts — sometimes called manual RAG — significantly improves output quality. The question was how to structure this context and how to track which context state produced a given output.
@@ -198,7 +168,7 @@ Chunk documents into a vector store, perform semantic retrieval at call time.
 - Premature for the current scale and team size
 
 **Manual RAG with curated documents (chosen)**
-Foundational features generate curated markdown summaries. Development features inject relevant documents whole.
+Some features generate curated markdown summaries of the project. Other features inject relevant documents whole into their AI prompts.
 - No infrastructure beyond the file system
 - Full control over what context the AI receives
 - Natural evolution path to vector store if the project grows
@@ -258,3 +228,68 @@ The CI pipeline runs three jobs on every push and pull request: lint, typecheck,
 
 ### Rationale
 The three core jobs (lint, typecheck, test) provide the minimum useful signal for contributors: does it follow style, does it type-check, do the tests pass. The package job catches issues that only appear when building the full extension. Deferring the release job avoids premature marketplace presence while the extension is in active early development.
+---
+
+## DEC-012: Feature Execution Model — FeatureRunner  
+   
+**Date:** 2026-03-22    
+**Status:** Adopted  
+   
+### Decision  
+Introduce a FeatureRunner abstraction to allow features to invoke other features and return structured results.  
+   
+### Context  
+The initial implementation treats features as terminal operations triggered by user commands. However, future capabilities require features to be composable, enabling workflows and agent-like execution patterns.  
+### Options Considered  
+   
+**Direct feature-to-feature calls**  
+- Tight coupling between features  
+- Violates feature isolation  
+- Harder to test and maintain  
+   
+**External orchestration framework (LangGraph, etc.)**  
+- Overly complex for current needs  
+- Introduces unnecessary infrastructure  
+- Reduces contributor accessibility  
+   
+**FeatureRunner abstraction (chosen)**  
+- Simple interface for execution  
+- Maintains feature isolation  
+- Enables composition without architectural changes  
+   
+### Rationale  
+FeatureRunner provides the minimal abstraction required to support feature composition, workflows, and agent-like behavior. It allows the system to evolve incrementally without introducing a separate orchestration layer or increasing contributor complexity.  
+![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OQQmAABRAsSeYxKS/kJkED6bwYAVvImwJtszMVu0BAPAXx1rd1fn1BACA164HHDwF+DpPyKwAAAAASUVORK5CYII=)  
+
+## DEC-013: Remove Feature Tier from Core Interface
+
+**Date:** 2026-03-23
+**Status:** Adopted
+
+### Decision
+
+Remove `tier: FeatureTier` from the `Feature` interface. Remove the `FeatureTier` type entirely.
+
+### Context
+
+The `tier` property (`'foundational' | 'development'`) was introduced in DEC-007 as a classification attribute on the `Feature` interface. In practice, it had no effect on feature execution, registration, or lifecycle. Both tiers implemented the same interface identically — `tier` was metadata for UI grouping and documentation, not a runtime contract.
+
+Carrying classification metadata on the core interface has costs:
+
+- Contributors must assign a tier when creating a feature, even though the choice has no behavioral consequence
+- The interface implies a distinction that does not exist in the runtime
+- UI grouping and documentation concerns are coupled to the feature contract
+
+### Rationale
+
+The `Feature` interface should contain only what is necessary for registration, activation, and execution. Classification and grouping are documentation and UI concerns — they do not belong on the core contract.
+
+Some features build project context, while others consume it. This distinction remains conceptually useful and is documented where relevant. It is simply no longer encoded as a property on the interface.
+
+### Consequences
+
+- `tier` property removed from `Feature` interface
+- `FeatureTier` type removed from `src/core/types.ts`
+- Feature tables in the PRD no longer include a Tier column
+- Existing features drop their `tier` property with no other changes required
+- If UI grouping is needed in the future, it will be handled outside the core interface (e.g., in the workflow panel configuration)

@@ -3,7 +3,7 @@
 
 **Version:** 0.1.0
 **Status:** In Development
-**Last Updated:** 2026-03-22
+**Last Updated:** 2026-03-23
 **Source of truth:** `src/core/types.ts`
 
 ---
@@ -24,8 +24,8 @@ Every capability in the extension implements the `Feature` interface. This is th
 interface Feature {
   readonly id: string;
   readonly displayName: string;
-  readonly tier: FeatureTier;
   activate(services: ServiceContainer): Contribution[] | Promise<Contribution[]>;
+  run?(services: ServiceContainer, input?: unknown): Promise<FeatureResult>;
   deactivate?(): void | Promise<void>;
 }
 ```
@@ -36,7 +36,6 @@ interface Feature {
 |---|---|---|---|
 | `id` | `string` | Yes | Unique identifier. Must match the VS Code command ID registered by the feature. Convention: `dbtModelMate.<featureName>` |
 | `displayName` | `string` | Yes | Human-readable name used in logs, error messages, and UI surfaces |
-| `tier` | `FeatureTier` | Yes | Classification of the feature's purpose. See Feature Tiers below. |
 
 ### Methods
 
@@ -48,22 +47,17 @@ Called once when the extension activates. The feature registers its VS Code cont
 - **Returns:** An array of `Contribution` objects. Each wraps a VS Code `Disposable`. The `FeatureRegistry` collects these and manages their lifecycle.
 - **Errors:** If `activate()` throws, the error is logged and surfaced as a notification. Other features continue activating.
 
+#### `run?(services: ServiceContainer, input?: unknown): Promise<FeatureResult>`
+
+Optional. Executes the feature programmatically and returns a structured result. Features that implement `run()` can be invoked by other features via `FeatureRunner`. Features that do not implement it can only be triggered by user commands.
+
+- **Parameter:** `services` — the shared service container.
+- **Parameter:** `input` — optional feature-specific input. Shape is defined by the feature's documentation.
+- **Returns:** A `FeatureResult` describing the outcome.
+
 #### `deactivate?(): void | Promise<void>`
 
 Optional. Called when the extension deactivates. Use for cleanup beyond what disposables handle (e.g., stopping timers, closing connections). Most features do not need to implement this.
-
-### Feature Tiers
-
-```typescript
-type FeatureTier = 'foundational' | 'development';
-```
-
-| Tier | Purpose | Typical output |
-|---|---|---|
-| `foundational` | Scans the project, builds or refreshes context documents | Files in `.dbt_model_mate/context/` |
-| `development` | Performs semantic layer work for the user | YAML files, diagnostics, reports |
-
-Tier is a classification for UI grouping and documentation. Both tiers implement the same `Feature` interface identically.
 
 ### Contribution
 
@@ -76,6 +70,53 @@ interface Contribution {
 A thin wrapper around a VS Code `Disposable`. Returned from `activate()` to give the `FeatureRegistry` ownership of the VS Code resource's lifecycle.
 
 ---
+
+## 2.1 FeatureRunner
+
+`FeatureRunner` is the programmatic execution interface for features.
+
+```typescript
+interface FeatureRunner {
+  run(featureId: string, input?: unknown): Promise<FeatureResult>;
+}
+```
+
+### Execution Contract
+
+Features must implement:
+
+```typescript
+run?(services: ServiceContainer, input?: unknown): Promise<FeatureResult>;
+```
+
+### FeatureResult
+
+```typescript
+interface FeatureResult {
+  success: boolean;
+  data?: unknown;
+  artifacts?: Artifact[];
+  error?: string;
+}
+```
+
+### Artifact
+
+```typescript
+interface Artifact {
+  type: 'semantic_model' | 'context_doc' | 'report' | 'analysis';
+  path?: string;
+  content?: string;
+  metadata?: Record<string, unknown>;
+}
+```
+
+### Notes
+
+- Used for feature-to-feature execution
+- Does not replace commands
+- Enables workflows and chaining
+
 
 ## 3. Service Container
 
