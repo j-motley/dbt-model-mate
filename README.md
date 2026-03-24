@@ -173,10 +173,9 @@ Use this for a quick start when context documents have not been generated yet, o
 
 ---
 
-### Generate Contextual Semantic Model
+### Generate Semantic Model
 
-**Command:** `dbt Model Mate: Generate Contextual Semantic Model`
-**Tier:** Development
+**Command:** `dbt Model Mate: Generate Semantic Model`
 
 Generates a semantic model using your project's context documents. Produces output that follows your team's naming conventions, patterns, and standards.
 
