@@ -1,38 +1,16 @@
-**Product Requirements Document**  
+**Product Requirements Document**   
    
-    
-   
-  **dbt Model Mate**  
-   
-    
+  **dbt Model Mate**   
    
   **Version:** 0.1.0  
+**Status:** In Development  
+**Last Updated:** 2026-03-23  
    
-    
+**1. Purpose**  
    
-     
+We are on the horizon of what is proving to be a complete paradigm shift in our industry. No one knows what the future will bring, but you can’t ignore what is happening today. The power of AI is transforming our industry every day. We can depend on the timelines of our vendor’s road map; nor do we have to! Rather than relying on rigid, monolithic tools or expensive off-the-shelf extensions, we are creating a lightweight, flexible framework within our existing development environment, that removes friction and adapts to the developer—not the other way around. The goal is not to impose structure, but to provide just enough of a tooling to enhance the human contribution and provide AI the context and skills to seamlessly join the workflow.   
    
-    
-   
-   **Status:** In Development  
-    
-   
-   **Last Updated:** 2026-03-23  
-   
-    
-    
-   
-  **1. Purpose**  
-   
-    
-   
-  We are on the horizon of what is proving to be a complete paradigm shift in our industry. No one knows what the future will bring, but you can’t ignore what is happening today. The power of AI is transforming our industry every day. We can depend on the timelines of our vendor’s road map; nor do we have to! Rather than relying on rigid, monolithic tools or expensive off-the-shelf extensions, we are creating a lightweight, flexible framework within our existing development environment, that removes friction and adapts to the developer—not the other way around. The goal is not to impose structure, but to provide just enough of a tooling to enhance the human contribution and provide AI the context and skills to seamlessly join the workflow.  
-   
-    
-   
- The core features of this solution, which will be delivered as an extension in VS Code, will generate and leverage the context of our specific platform. By ingesting inputs such as naming conventions, architectural standards, and by analyzing our entire code base, a process will output a standard set of artifacts that will server as instruction sets AI. And another feature will take those artifacts in as inputs along with a varying set of requirements documents, source mappings, product specifications, and natural language prompts, and it synthesizes organizational knowledge into actionable artifacts—most notably dbt semantic models tailored to the company’s data, infrastructure, and standards. This bridges the gap between business intent and technical implementation, enabling developers to produce meaningful, context-aware outputs with minimal overhead. Development becomes less about manual translation and more about expressing intent, with the system handling the alignment.  
-   
-    
+ The core features of this solution, which will be delivered as an extension in VS Code, will generate and leverage the context of our specific platform. By ingesting inputs such as naming conventions, architectural standards, and by analyzing our entire code base, a process will output a standard set of artifacts that will server as instruction sets AI. And another feature will take those artifacts in as inputs along with a varying set of requirements documents, source mappings, product specifications, and natural language prompts, and it synthesizes organizational knowledge into actionable artifacts—most notably dbt semantic models tailored to the company’s data, infrastructure, and standards. This bridges the gap between business intent and technical implementation, enabling developers to produce meaningful, context-aware outputs with minimal overhead. Development becomes less about manual translation and more about expressing intent, with the system handling the alignment.   
    
  But its not just those core features. The extension will expose a flexible framework that will make it easy to develop additional features, geared toward AXA XL and whatever is most needed or that will relieve the biggest pain points.  
    
@@ -41,9 +19,7 @@
  A VS Code extension as a Swiss Army knife for the semantic layer, providing tools to help with model generation, unit testing, performance tuning, building and deployment code, managing releases, monitoring the environment, the list of potential wins goes on and on.  
    
  And once developed, those tools with clearly defined inputs and outputs, can be leveraged by other teammates and AI agents as well. In a landscape where AI effectively becomes in-house development capability, this approach eliminates dependence on generic software designed for the masses. Instead, it enables teams and individuals to craft tailored solutions, share them, and evolve their tooling organically. The result is a dual-purpose system: a direct productivity accelerator and a foundation for continuous, developer-driven innovation.  
-   
-   
- This document defines the product requirements for dbt Model Mate, a VS Code extension for analytics engineering teams that own the semantic layer in a dbt-centric data ecosystem.  
+This document defines the product requirements for dbt Model Mate, a VS Code extension for analytics engineering teams that own the semantic layer in a dbt-centric data ecosystem.  
    
     
    
@@ -57,30 +33,21 @@
 - Onboarding new team members to the semantic layer requires absorbing context that is scattered across the codebase with no single reference point  
 - There is no structured way for team members to build and share AI-assisted workflows specific to their semantic layer pain points  
    
-    
-   
-    
-   
- The core challenge is not that AI tools are unavailable — it is that AI tools without curated project context produce output that compiles but does not belong.  
-   
+The core challenge is not that AI tools are unavailable — it is that AI tools without curated project context produce output that compiles but does not belong.  
     
  **3. Vision**  
-    
    
-  dbt Model Mate is a platform for analytics engineering teams to build their own AI-assisted workflows for the semantic layer. The extension ships with a set of core features, but the real value comes from team members adding functionality that solves their specific pain points.  
+dbt Model Mate is a platform for analytics engineering teams to build their own AI-assisted workflows for the semantic layer. The extension ships with a set of core features, but the real value comes from team members adding functionality that solves their specific pain points.  
    
     
  *A teammate who feels friction in their semantic layer workflow does not raise a feature request. They build the feature.*  
     
-   
   **4. Target Users**  
-   
     
  **Primary:** Analytics engineers and data engineers who own, build, or maintain a semantic layer built with dbt.  
- **Secondary:** Those same engineers who contribute to the extension itself — team members who identify workflow pain and build features to address it.  
+**Secondary:** Those same engineers who contribute to the extension itself — team members who identify workflow pain and build features to address it.  
    
-    
- **Environment:** Teams using dbt in a large, multi-model codebase where:  
+**Environment:** Teams using dbt in a large, multi-model codebase where:  
 - Semantic layer conventions are established but not always documented  
 - New data products require understanding patterns accumulated over years of development  
 - GitHub Copilot access is available via organizational subscription  
@@ -151,15 +118,11 @@ Some features build project context (scanning the codebase, generating context d
   | Generate Context Documents | Scans the dbt project and produces canonical context documents: architecture, naming conventions, source index, and pattern library. Each document is assigned a UUID at generation time. |  
    
     
+  | Generate Semantic Model | Generates a semantic model based on provided context. Stamps the context document IDs as provenance in the output. |  
    
-  | Generate Semantic Model (Generic) | Generates a MetricFlow semantic model starter for a selected dbt model. Context-blind — uses only the model's own YAML. |  
    
-    
+**Planned Features**  
    
-  | Generate Contextual Semantic Model | Generates a MetricFlow semantic model using available context documents. Stamps the context document IDs as provenance in the output. |  
- **Planned Features**  
-   
-    
    
   | | |  
    
