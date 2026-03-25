@@ -1,0 +1,13 @@
+.github/**
+.gitignore
+src/**
+docs/**
+**/*.ts
+!**/*.d.ts
+**/*.map
+**/*.test.js
+tsconfig.json
+.eslintrc*
+node_modules/**
+out/test/**
+CONTRIBUTING.md

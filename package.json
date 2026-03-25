@@ -7,6 +7,11 @@
   "engines": {
     "vscode": "^1.90.0"
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j-motley/dbt-model-mate.git"
+  },
   "categories": ["Other"],
   "keywords": ["dbt", "semantic layer", "analytics engineering", "data modeling"],
   "activationEvents": [
